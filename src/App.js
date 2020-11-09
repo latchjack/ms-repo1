@@ -24,16 +24,14 @@ class App extends Component {
   //   });
   // };
 
-  switchNameHandler = () => {
-    // console.log('You clicked switch name');
-    this.setState({
-      people: [
-        { name: "Doom", age: 33 },
-        { name: "Bonnie", age: 35 },
-        { name: "Bill", age: 36 }
-      ]
-    });
-  };
+  deletePersonHandler = (personIndex) => {
+    // const people = this.state.people.slice(); this line or line below
+    // the spread operator is the modern approach to this.
+    // this allows us to update state without mutating.
+    const people = [...this.state.people];
+    people.splice(personIndex, 1);
+    this.setState({ people: people });
+  }
 
   nameChangeHandler = (event) => {
     this.setState({
@@ -65,8 +63,12 @@ class App extends Component {
     if (this.state.showPeople) {
       people = (
         <div>
-          {this.state.people.map(person => {
-            return <Person name={person.name} age={person.age} />
+          {this.state.people.map((person, index) => {
+            return <Person
+              key={index}
+              click={() => this.deletePersonHandler(index)}
+              name={person.name}
+              age={person.age} />
           })}
         </div>
       );
