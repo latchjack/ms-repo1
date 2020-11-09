@@ -5,9 +5,9 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     people: [
-      { name: "Axel", age: 32 },
-      { name: "Dexter", age: 33 },
-      { name: "Henry", age: 34 }
+      { id: '123', name: "Axel", age: 32 },
+      { id: '456', name: "Dexter", age: 33 },
+      { id: '789', name: "Henry", age: 34 }
     ],
     showPeople: false
   };
@@ -33,14 +33,24 @@ class App extends Component {
     this.setState({ people: people });
   }
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      people: [
-        { name: "Doom", age: 33 },
-        { name: event.target.value, age: 35 },
-        { name: "Bill", age: 36 }
-      ]
+  nameChangeHandler = (event, id) => {
+    const personIndex = this.state.people.findIndex(p => {
+      return p.id === id;
     });
+    // const person = this.state.people[personIndex]; - would cause mutation
+    // const person = Object.assign({}, this.state.people[personIndex]); - another method
+    // below is the modern approach
+    const person = {
+      ...this.state.people[personIndex]
+    };
+
+    person.name = event.target.value;
+
+    const people = [...this.state.people];
+
+    people[personIndex] = person;
+
+    this.setState({ people: people });
   };
 
   togglePeopleHandler = () => {
@@ -65,10 +75,11 @@ class App extends Component {
         <div>
           {this.state.people.map((person, index) => {
             return <Person
-              key={index}
-              click={() => this.deletePersonHandler(index)}
               name={person.name}
-              age={person.age} />
+              age={person.age}
+              key={person.id}
+              click={() => this.deletePersonHandler(index)}
+              changed={(event) => this.nameChangeHandler(event, person.id)} />
           })}
         </div>
       );
