@@ -65,21 +65,9 @@ class App extends Component {
     if (this.state.showPeople) {
       people = (
         <div>
-          <Person
-            name={this.state.people[0].name}
-            age={this.state.people[0].age}
-          />
-
-          <Person
-            name={this.state.people[1].name}
-            age={this.state.people[1].age}
-            changed={this.nameChangeHandler}
-          />
-
-          <Person
-            name={this.state.people[2].name}
-            age={this.state.people[2].age}
-          />
+          {this.state.people.map(person => {
+            return <Person name={person.name} age={person.age} />
+          })}
         </div>
       );
     }
@@ -107,27 +95,6 @@ class App extends Component {
 
         {/* Shows people if not set to Null from toggle */}
         {people}
-
-        {/* { commented out to make dynamic in next tutorial lesson
-          this.state.showPeople ?
-            <div>
-              <Person
-                name={this.state.people[0].name}
-                age={this.state.people[0].age}
-              />
-
-              <Person
-                name={this.state.people[1].name}
-                age={this.state.people[1].age}
-                changed={this.nameChangeHandler}
-              />
-
-              <Person
-                name={this.state.people[2].name}
-                age={this.state.people[2].age}
-              />
-            </div> : null
-        } */}
 
       </div>
     );
