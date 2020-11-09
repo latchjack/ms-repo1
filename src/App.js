@@ -60,6 +60,30 @@ class App extends Component {
       cursor: 'pointer'
     };
 
+    let people = null;
+
+    if (this.state.showPeople) {
+      people = (
+        <div>
+          <Person
+            name={this.state.people[0].name}
+            age={this.state.people[0].age}
+          />
+
+          <Person
+            name={this.state.people[1].name}
+            age={this.state.people[1].age}
+            changed={this.nameChangeHandler}
+          />
+
+          <Person
+            name={this.state.people[2].name}
+            age={this.state.people[2].age}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="App">
 
@@ -81,7 +105,10 @@ class App extends Component {
           Toggle People
         </button>
 
-        {
+        {/* Shows people if not set to Null from toggle */}
+        {people}
+
+        {/* { commented out to make dynamic in next tutorial lesson
           this.state.showPeople ?
             <div>
               <Person
@@ -100,7 +127,7 @@ class App extends Component {
                 age={this.state.people[2].age}
               />
             </div> : null
-        }
+        } */}
 
       </div>
     );
