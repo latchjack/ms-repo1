@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Person from './Person/Person';
 
 class Persons extends Component {
-  static getDerivedStateFromProps(props, state) {
-    console.log('[Persons.js] getDerivedStateFromProps');
-    return state;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log('[Persons.js] getDerivedStateFromProps');
+  //   return state;
+  // }
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log('[Persons.js] shouldComponentUpdate');
@@ -21,6 +21,10 @@ class Persons extends Component {
     console.log('[Persons.js] componentDidUpdate');
     console.log(snapshot);
   }
+
+  componentWillUnmount() {
+    console.log('[Persons.js] componentWillUnmount');
+  };
 
   render() {
     console.log('[Persons.js] rendering...')
